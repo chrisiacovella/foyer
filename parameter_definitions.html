@@ -44,7 +44,9 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Atom-typing Options" href="atom-typing_options.html" />
+    <link rel="prev" title="SMARTS-based atomtyping" href="smarts.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -98,8 +100,12 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="smarts.html">SMARTS-based atomtyping</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="forcefields.html">Parameter definitions</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Parameter definitions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#classes-vs-types">Classes vs.&nbsp;Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#assigning-parameters-by-specificity">Assigning parameters by specificity</a></li>
+</ul>
+</li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="atom-typing_options.html">Atom-typing Options</a></li>
@@ -216,8 +222,8 @@ forces are:</p>
 <p>Definitions for each molecular force follow the OpenMM standard.</p>
 <div class="section" id="classes-vs-types">
 <h2>Classes vs.&nbsp;Types<a class="headerlink" href="#classes-vs-types" title="Permalink to this headline">¶</a></h2>
-<p>OpenMM allows users to specify either a <code class="docutils literal"><span class="pre">`class</span></code> or a
-<code class="docutils literal"><span class="pre">type</span></code> &lt;<a class="reference external" href="http://docs.openmm.org/7.0.0/userguide/application.html#atom-types-and-atom-classes">http://docs.openmm.org/7.0.0/userguide/application.html#atom-types-and-atom-classes</a>&gt;`__,
+<p>OpenMM allows users to specify either a <code class="docutils literal"><span class="pre">class</span></code> or a
+<code class="docutils literal"><span class="pre">type</span></code> (See <a class="reference external" href="http://docs.openmm.org/7.0.0/userguide/application.html#atom-types-and-atom-classes">Atom Types and Atom Classes</a>),
 to define each particle within the force definition. Here, <code class="docutils literal"><span class="pre">type</span></code>
 refers to a specific atom type (as defined in the <code class="docutils literal"><span class="pre">&lt;AtomTypes&gt;</span></code>
 section), while <code class="docutils literal"><span class="pre">class</span></code> refers to a more general description that can
@@ -236,7 +242,7 @@ exist. In contrast, Foyer assigns force parameters based on definition
 specificity, where definitions containing more <code class="docutils literal"><span class="pre">type</span></code> attributes are
 considered to be more specific.</p>
 <p><strong>Example:</strong></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">RBTorsionForce</span><span class="o">&gt;</span>
+<div class="code xml highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">RBTorsionForce</span><span class="o">&gt;</span>
   <span class="o">&lt;</span><span class="n">Proper</span> <span class="n">class1</span><span class="o">=</span><span class="s2">&quot;CT&quot;</span> <span class="n">class2</span><span class="o">=</span><span class="s2">&quot;CT&quot;</span> <span class="n">class3</span><span class="o">=</span><span class="s2">&quot;CT&quot;</span> <span class="n">class4</span><span class="o">=</span><span class="s2">&quot;CT&quot;</span> <span class="n">c0</span><span class="o">=</span><span class="s2">&quot;2.9288&quot;</span> <span class="n">c1</span><span class="o">=</span><span class="s2">&quot;-1.4644&quot;</span> <span class="n">c2</span><span class="o">=</span><span class="s2">&quot;0.2092&quot;</span> <span class="n">c3</span><span class="o">=</span><span class="s2">&quot;-1.6736&quot;</span> <span class="n">c4</span><span class="o">=</span><span class="s2">&quot;0.0&quot;</span> <span class="n">c5</span><span class="o">=</span><span class="s2">&quot;0.0&quot;</span><span class="o">/&gt;</span>
   <span class="o">&lt;</span><span class="n">Proper</span> <span class="n">type1</span><span class="o">=</span><span class="s2">&quot;opls_961&quot;</span> <span class="n">type2</span><span class="o">=</span><span class="s2">&quot;opls_136&quot;</span> <span class="n">type3</span><span class="o">=</span><span class="s2">&quot;opls_136&quot;</span> <span class="n">type4</span><span class="o">=</span><span class="s2">&quot;opls_136&quot;</span> <span class="n">c0</span><span class="o">=</span><span class="s2">&quot;-0.987424&quot;</span> <span class="n">c1</span><span class="o">=</span><span class="s2">&quot;0.08363&quot;</span> <span class="n">c2</span><span class="o">=</span><span class="s2">&quot;-0.08368&quot;</span> <span class="n">c3</span><span class="o">=</span><span class="s2">&quot;-0.401664&quot;</span> <span class="n">c4</span><span class="o">=</span><span class="s2">&quot;1.389088&quot;</span> <span class="n">c5</span><span class="o">=</span><span class="s2">&quot;0.0&quot;</span><span class="o">/&gt;</span>
 <span class="o">&lt;/</span><span class="n">RBTorsionForce</span><span class="o">&gt;</span>
@@ -274,6 +280,15 @@ force definition in the XML will be assigned.</p>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="atom-typing_options.html" class="btn btn-neutral float-right" title="Atom-typing Options" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="smarts.html" class="btn btn-neutral float-left" title="SMARTS-based atomtyping" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
