@@ -185,10 +185,6 @@
 <span class="kn">from</span> <span class="nn">tempfile</span> <span class="k">import</span> <span class="n">NamedTemporaryFile</span>
 <span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
 
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">cStringIO</span> <span class="k">import</span> <span class="n">StringIO</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">io</span> <span class="k">import</span> <span class="n">StringIO</span>
 <span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="k">import</span> <span class="n">resource_filename</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
@@ -214,18 +210,19 @@
 
 
 <span class="k">def</span> <span class="nf">preprocess_forcefield_files</span><span class="p">(</span><span class="n">forcefield_files</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Pre-process foyer Forcefield XML files&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">forcefield_files</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="n">preprocessed_files</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="k">for</span> <span class="n">xml_file</span> <span class="ow">in</span> <span class="n">forcefield_files</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">xml_file</span><span class="p">,</span><span class="s1">&#39;read&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">xml_file</span><span class="p">,</span> <span class="s1">&#39;read&#39;</span><span class="p">):</span>
             <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">xml_file</span><span class="p">)</span>
-            <span class="n">_</span><span class="p">,</span><span class="n">suffix</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">xml_file</span><span class="p">)</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">suffix</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">xml_file</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">f</span> <span class="o">=</span> <span class="n">xml_file</span>
-            <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+            <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
         <span class="c1"># read and preprocess</span>
         <span class="n">xml_contents</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
@@ -266,8 +263,7 @@
     <span class="k">return</span> <span class="n">preprocessed_files</span>
 
 
-<span class="k">def</span> <span class="nf">generate_topology</span><span class="p">(</span><span class="n">non_omm_topology</span><span class="p">,</span> <span class="n">non_element_types</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">residues</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">generate_topology</span><span class="p">(</span><span class="n">non_omm_topology</span><span class="p">,</span> <span class="n">non_element_types</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">residues</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Create an OpenMM Topology from another supported topology structure.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">non_element_types</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">non_element_types</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -277,8 +273,8 @@
     <span class="k">elif</span> <span class="n">has_mbuild</span><span class="p">:</span>
         <span class="n">mb</span> <span class="o">=</span> <span class="n">import_</span><span class="p">(</span><span class="s1">&#39;mbuild&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">non_omm_topology</span><span class="p">,</span> <span class="n">mb</span><span class="o">.</span><span class="n">Compound</span><span class="p">):</span>
-            <span class="n">pmdCompoundStructure</span> <span class="o">=</span> <span class="n">non_omm_topology</span><span class="o">.</span><span class="n">to_parmed</span><span class="p">(</span><span class="n">residues</span><span class="o">=</span><span class="n">residues</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">_topology_from_parmed</span><span class="p">(</span><span class="n">pmdCompoundStructure</span><span class="p">,</span> <span class="n">non_element_types</span><span class="p">)</span>
+            <span class="n">pmd_comp_struct</span> <span class="o">=</span> <span class="n">non_omm_topology</span><span class="o">.</span><span class="n">to_parmed</span><span class="p">(</span><span class="n">residues</span><span class="o">=</span><span class="n">residues</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">_topology_from_parmed</span><span class="p">(</span><span class="n">pmd_comp_struct</span><span class="p">,</span> <span class="n">non_element_types</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">FoyerError</span><span class="p">(</span><span class="s1">&#39;Unknown topology format: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span>
                          <span class="s1">&#39;Supported formats are: &#39;</span>
@@ -786,7 +782,7 @@
 
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SystemData</span>
         <span class="n">data</span><span class="o">.</span><span class="n">atoms</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">topology</span><span class="o">.</span><span class="n">atoms</span><span class="p">())</span>
-        <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">atoms</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">atoms</span><span class="p">:</span>
             <span class="n">data</span><span class="o">.</span><span class="n">excludeAtomWith</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
 
         <span class="c1"># Make a list of all bonds</span>
@@ -990,6 +986,7 @@
             <span class="n">atom</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">typemap</span><span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">index</span><span class="p">][</span><span class="s1">&#39;atomtype&#39;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_prepare_topology</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topology</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Separate positions and other topological information&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">topology</span><span class="p">,</span> <span class="n">app</span><span class="o">.</span><span class="n">Topology</span><span class="p">):</span>
             <span class="n">residues</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;residues&#39;</span><span class="p">)</span>
             <span class="n">topology</span><span class="p">,</span> <span class="n">positions</span> <span class="o">=</span> <span class="n">generate_topology</span><span class="p">(</span><span class="n">topology</span><span class="p">,</span>
