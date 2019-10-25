@@ -625,7 +625,7 @@
 <div class="viewcode-block" id="Forcefield.apply"><a class="viewcode-back" href="../../data_structures.html#foyer.forcefield.Forcefield.apply">[docs]</a>    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topology</span><span class="p">,</span> <span class="n">references_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_residue_map</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
               <span class="n">assert_bond_params</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">assert_angle_params</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
               <span class="n">assert_dihedral_params</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">assert_improper_params</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-              <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+              <span class="n">combining_rule</span><span class="o">=</span><span class="s1">&#39;geometric&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Apply the force field to a molecular structure</span>
 
 <span class="sd">        Parameters</span>
@@ -656,6 +656,9 @@
 <span class="sd">        assert_improper_params : bool, optional, default=False</span>
 <span class="sd">            If True, Foyer will exit if parameters are not found for all system</span>
 <span class="sd">            improper dihedrals.</span>
+<span class="sd">        combining_rule : str, optional, default=&#39;geometric&#39;</span>
+<span class="sd">            The combining rule of the system, stored as an attribute of the</span>
+<span class="sd">            ParmEd structure. Accepted arguments are `geometric` and `lorentz`.</span>
 <span class="sd">        verbose : bool, optional, default=False</span>
 <span class="sd">            If True, Foyer will print debug-level information about notable or</span>
 <span class="sd">            potentially problematic details it encounters.</span>
@@ -691,6 +694,11 @@
         <span class="k">if</span> <span class="n">references_file</span><span class="p">:</span>
             <span class="n">atom_types</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">atom</span><span class="o">.</span><span class="n">type</span> <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">atoms</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_write_references_to_file</span><span class="p">(</span><span class="n">atom_types</span><span class="p">,</span> <span class="n">references_file</span><span class="p">)</span>
+
+        <span class="c1"># TODO: Check against the name of the force field and/or store</span>
+        <span class="c1"># combining rule directly in XML, i.e.</span>
+        <span class="c1"># if self.name == &#39;oplsaa&#39;:</span>
+        <span class="n">structure</span><span class="o">.</span><span class="n">combining_rule</span> <span class="o">=</span> <span class="n">combining_rule</span>
 
         <span class="k">return</span> <span class="n">structure</span></div>
 
