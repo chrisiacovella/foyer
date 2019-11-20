@@ -674,34 +674,10 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_apply_typemap</span><span class="p">(</span><span class="n">topology</span><span class="p">,</span> <span class="n">typemap</span><span class="p">)</span>
 
-        <span class="n">system</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">createSystem</span><span class="p">(</span><span class="n">topology</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-        <span class="n">_separate_urey_bradleys</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">topology</span><span class="p">)</span>
-
-        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SystemData</span>
-
-        <span class="n">structure</span> <span class="o">=</span> <span class="n">pmd</span><span class="o">.</span><span class="n">openmm</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="n">topology</span><span class="o">=</span><span class="n">topology</span><span class="p">,</span> <span class="n">system</span><span class="o">=</span><span class="n">system</span><span class="p">)</span>
-        <span class="n">structure</span><span class="o">.</span><span class="n">bonds</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">atom1</span><span class="o">.</span><span class="n">idx</span><span class="p">)</span>
-        <span class="n">structure</span><span class="o">.</span><span class="n">positions</span> <span class="o">=</span> <span class="n">positions</span>
-        <span class="n">box_vectors</span> <span class="o">=</span> <span class="n">topology</span><span class="o">.</span><span class="n">getPeriodicBoxVectors</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">box_vectors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">structure</span><span class="o">.</span><span class="n">box_vectors</span> <span class="o">=</span> <span class="n">box_vectors</span>
-
-        <span class="n">_check_bonds</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">structure</span><span class="p">,</span> <span class="n">assert_bond_params</span><span class="p">)</span>
-        <span class="n">_check_angles</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">structure</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">assert_angle_params</span><span class="p">)</span>
-        <span class="n">_check_dihedrals</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">structure</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span>
-                              <span class="n">assert_dihedral_params</span><span class="p">,</span> <span class="n">assert_improper_params</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">references_file</span><span class="p">:</span>
-            <span class="n">atom_types</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">atom</span><span class="o">.</span><span class="n">type</span> <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">atoms</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_write_references_to_file</span><span class="p">(</span><span class="n">atom_types</span><span class="p">,</span> <span class="n">references_file</span><span class="p">)</span>
-
-        <span class="c1"># TODO: Check against the name of the force field and/or store</span>
-        <span class="c1"># combining rule directly in XML, i.e.</span>
-        <span class="c1"># if self.name == &#39;oplsaa&#39;:</span>
-        <span class="n">structure</span><span class="o">.</span><span class="n">combining_rule</span> <span class="o">=</span> <span class="n">combining_rule</span>
-
-        <span class="k">return</span> <span class="n">structure</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parametrize_system</span><span class="p">(</span><span class="n">topology</span><span class="o">=</span><span class="n">topology</span><span class="p">,</span> <span class="n">positions</span><span class="o">=</span><span class="n">positions</span><span class="p">,</span>
+            <span class="n">references_file</span><span class="o">=</span><span class="n">references_file</span><span class="p">,</span> <span class="n">assert_bond_params</span><span class="o">=</span><span class="n">assert_bond_params</span><span class="p">,</span>
+            <span class="n">assert_angle_params</span><span class="o">=</span><span class="n">assert_angle_params</span><span class="p">,</span> <span class="n">assert_dihedral_params</span><span class="o">=</span><span class="n">assert_dihedral_params</span><span class="p">,</span>
+            <span class="n">combining_rule</span><span class="o">=</span><span class="n">combining_rule</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Forcefield.run_atomtyping"><a class="viewcode-back" href="../../data_structures.html#foyer.forcefield.Forcefield.run_atomtyping">[docs]</a>    <span class="k">def</span> <span class="nf">run_atomtyping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topology</span><span class="p">,</span> <span class="n">use_residue_map</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Atomtype the topology</span>
@@ -744,6 +720,43 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Not all atoms in topology have atom types&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">typemap</span></div>
+
+    <span class="k">def</span> <span class="nf">parametrize_system</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topology</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">positions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                           <span class="n">references_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">assert_bond_params</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                           <span class="n">assert_angle_params</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                           <span class="n">assert_dihedral_params</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                           <span class="n">assert_improper_params</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                           <span class="n">combining_rule</span><span class="o">=</span><span class="s1">&#39;geometric&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                           <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">system</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">createSystem</span><span class="p">(</span><span class="n">topology</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">_separate_urey_bradleys</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">topology</span><span class="p">)</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SystemData</span>
+
+        <span class="n">structure</span> <span class="o">=</span> <span class="n">pmd</span><span class="o">.</span><span class="n">openmm</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="n">topology</span><span class="o">=</span><span class="n">topology</span><span class="p">,</span> <span class="n">system</span><span class="o">=</span><span class="n">system</span><span class="p">)</span>
+        <span class="n">structure</span><span class="o">.</span><span class="n">bonds</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">atom1</span><span class="o">.</span><span class="n">idx</span><span class="p">)</span>
+        <span class="n">structure</span><span class="o">.</span><span class="n">positions</span> <span class="o">=</span> <span class="n">positions</span>
+        <span class="n">box_vectors</span> <span class="o">=</span> <span class="n">topology</span><span class="o">.</span><span class="n">getPeriodicBoxVectors</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">box_vectors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">structure</span><span class="o">.</span><span class="n">box_vectors</span> <span class="o">=</span> <span class="n">box_vectors</span>
+
+        <span class="n">_check_bonds</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">structure</span><span class="p">,</span> <span class="n">assert_bond_params</span><span class="p">)</span>
+        <span class="n">_check_angles</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">structure</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">assert_angle_params</span><span class="p">)</span>
+        <span class="n">_check_dihedrals</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">structure</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span>
+                              <span class="n">assert_dihedral_params</span><span class="p">,</span> <span class="n">assert_improper_params</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">references_file</span><span class="p">:</span>
+            <span class="n">atom_types</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">atom</span><span class="o">.</span><span class="n">type</span> <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">structure</span><span class="o">.</span><span class="n">atoms</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_references_to_file</span><span class="p">(</span><span class="n">atom_types</span><span class="p">,</span> <span class="n">references_file</span><span class="p">)</span>
+
+        <span class="c1"># TODO: Check against the name of the force field and/or store</span>
+        <span class="c1"># combining rule directly in XML, i.e.</span>
+        <span class="c1"># if self.name == &#39;oplsaa&#39;:</span>
+        <span class="n">structure</span><span class="o">.</span><span class="n">combining_rule</span> <span class="o">=</span> <span class="n">combining_rule</span>
+
+        <span class="k">return</span> <span class="n">structure</span>
 
 <div class="viewcode-block" id="Forcefield.createSystem"><a class="viewcode-back" href="../../data_structures.html#foyer.forcefield.Forcefield.createSystem">[docs]</a>    <span class="k">def</span> <span class="nf">createSystem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topology</span><span class="p">,</span> <span class="n">nonbondedMethod</span><span class="o">=</span><span class="n">NoCutoff</span><span class="p">,</span>
                      <span class="n">nonbondedCutoff</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">nanometer</span><span class="p">,</span> <span class="n">constraints</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
