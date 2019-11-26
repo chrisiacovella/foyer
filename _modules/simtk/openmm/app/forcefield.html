@@ -208,7 +208,7 @@
 <span class="sd">OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE</span>
 <span class="sd">USE OR OTHER DEALINGS IN THE SOFTWARE.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">print_function</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Peter Eastman&quot;</span>
 <span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;1.0&quot;</span>
@@ -218,15 +218,15 @@
 <span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">etree</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">cos</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">cos</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">import</span> <span class="nn">simtk.openmm</span> <span class="k">as</span> <span class="nn">mm</span>
 <span class="kn">import</span> <span class="nn">simtk.unit</span> <span class="k">as</span> <span class="nn">unit</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">element</span> <span class="k">as</span> <span class="n">elem</span>
-<span class="kn">from</span> <span class="nn">simtk.openmm.app</span> <span class="k">import</span> <span class="n">Topology</span>
-<span class="kn">from</span> <span class="nn">simtk.openmm.app.internal.singleton</span> <span class="k">import</span> <span class="n">Singleton</span>
-<span class="kn">from</span> <span class="nn">simtk.openmm.app.internal</span> <span class="k">import</span> <span class="n">compiled</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">element</span> <span class="k">as</span> <span class="n">elem</span>
+<span class="kn">from</span> <span class="nn">simtk.openmm.app</span> <span class="kn">import</span> <span class="n">Topology</span>
+<span class="kn">from</span> <span class="nn">simtk.openmm.app.internal.singleton</span> <span class="kn">import</span> <span class="n">Singleton</span>
+<span class="kn">from</span> <span class="nn">simtk.openmm.app.internal</span> <span class="kn">import</span> <span class="n">compiled</span>
 
 <span class="c1"># Directories from which to load built in force fields.</span>
 
@@ -237,7 +237,7 @@
     <span class="k">if</span> <span class="n">_dataDirectories</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">_dataDirectories</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;data&#39;</span><span class="p">)]</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="k">import</span> <span class="n">iter_entry_points</span>
+            <span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">iter_entry_points</span>
             <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">iter_entry_points</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="s1">&#39;openmm.forcefielddir&#39;</span><span class="p">):</span>
                 <span class="n">_dataDirectories</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">load</span><span class="p">()())</span>
         <span class="k">except</span><span class="p">:</span>
@@ -288,49 +288,49 @@
 <span class="c1"># Enumerated values for nonbonded method</span>
 
 <span class="k">class</span> <span class="nc">NoCutoff</span><span class="p">(</span><span class="n">Singleton</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;NoCutoff&#39;</span>
 <span class="n">NoCutoff</span> <span class="o">=</span> <span class="n">NoCutoff</span><span class="p">()</span>
 
 <span class="k">class</span> <span class="nc">CutoffNonPeriodic</span><span class="p">(</span><span class="n">Singleton</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;CutoffNonPeriodic&#39;</span>
 <span class="n">CutoffNonPeriodic</span> <span class="o">=</span> <span class="n">CutoffNonPeriodic</span><span class="p">()</span>
 
 <span class="k">class</span> <span class="nc">CutoffPeriodic</span><span class="p">(</span><span class="n">Singleton</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;CutoffPeriodic&#39;</span>
 <span class="n">CutoffPeriodic</span> <span class="o">=</span> <span class="n">CutoffPeriodic</span><span class="p">()</span>
 
 <span class="k">class</span> <span class="nc">Ewald</span><span class="p">(</span><span class="n">Singleton</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;Ewald&#39;</span>
 <span class="n">Ewald</span> <span class="o">=</span> <span class="n">Ewald</span><span class="p">()</span>
 
 <span class="k">class</span> <span class="nc">PME</span><span class="p">(</span><span class="n">Singleton</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;PME&#39;</span>
 <span class="n">PME</span> <span class="o">=</span> <span class="n">PME</span><span class="p">()</span>
 
 <span class="k">class</span> <span class="nc">LJPME</span><span class="p">(</span><span class="n">Singleton</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;LJPME&#39;</span>
 <span class="n">LJPME</span> <span class="o">=</span> <span class="n">LJPME</span><span class="p">()</span>
 
 <span class="c1"># Enumerated values for constraint type</span>
 
 <span class="k">class</span> <span class="nc">HBonds</span><span class="p">(</span><span class="n">Singleton</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;HBonds&#39;</span>
 <span class="n">HBonds</span> <span class="o">=</span> <span class="n">HBonds</span><span class="p">()</span>
 
 <span class="k">class</span> <span class="nc">AllBonds</span><span class="p">(</span><span class="n">Singleton</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;AllBonds&#39;</span>
 <span class="n">AllBonds</span> <span class="o">=</span> <span class="n">AllBonds</span><span class="p">()</span>
 
 <span class="k">class</span> <span class="nc">HAngles</span><span class="p">(</span><span class="n">Singleton</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;HAngles&#39;</span>
 <span class="n">HAngles</span> <span class="o">=</span> <span class="n">HAngles</span><span class="p">()</span>
 
@@ -341,7 +341,7 @@
 <span class="k">class</span> <span class="nc">ForceField</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A ForceField constructs OpenMM System objects based on a Topology.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">files</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">files</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Load one or more XML files and create a ForceField object based on them.</span>
 
 <span class="sd">        Parameters</span>
@@ -728,7 +728,7 @@
 
     <span class="k">class</span> <span class="nc">_SystemData</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Inner class used to encapsulate data about the system being created.&quot;&quot;&quot;</span>
-        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">atomType</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">atomParameters</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">atomTemplateIndexes</span> <span class="o">=</span> <span class="p">{}</span>
@@ -766,7 +766,7 @@
 
     <span class="k">class</span> <span class="nc">_TemplateData</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Inner class used to encapsulate data about a residue template definition.&quot;&quot;&quot;</span>
-        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">atoms</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">atomIndices</span> <span class="o">=</span> <span class="p">{}</span>
@@ -814,7 +814,7 @@
 
     <span class="k">class</span> <span class="nc">_TemplateAtomData</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Inner class used to encapsulate data about an atom in a residue template definition.&quot;&quot;&quot;</span>
-        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="p">{}):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="nb">type</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">element</span> <span class="o">=</span> <span class="n">element</span>
@@ -824,7 +824,7 @@
 
     <span class="k">class</span> <span class="nc">_BondData</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Inner class used to encapsulate data about a bond.&quot;&quot;&quot;</span>
-        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atom1</span><span class="p">,</span> <span class="n">atom2</span><span class="p">):</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atom1</span><span class="p">,</span> <span class="n">atom2</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">atom1</span> <span class="o">=</span> <span class="n">atom1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">atom2</span> <span class="o">=</span> <span class="n">atom2</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">isConstrained</span> <span class="o">=</span> <span class="kc">False</span>
@@ -832,7 +832,7 @@
 
     <span class="k">class</span> <span class="nc">_VirtualSiteData</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Inner class used to encapsulate data about a virtual site.&quot;&quot;&quot;</span>
-        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">atomIndices</span><span class="p">):</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">atomIndices</span><span class="p">):</span>
             <span class="n">attrib</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">attrib</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;average2&#39;</span><span class="p">:</span>
@@ -870,7 +870,7 @@
 
     <span class="k">class</span> <span class="nc">_PatchData</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Inner class used to encapsulate data about a patch definition.&quot;&quot;&quot;</span>
-        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">numResidues</span><span class="p">):</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">numResidues</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">numResidues</span> <span class="o">=</span> <span class="n">numResidues</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">addedAtoms</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numResidues</span><span class="p">)]</span>
@@ -946,7 +946,7 @@
 
     <span class="k">class</span> <span class="nc">_PatchAtomData</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Inner class used to encapsulate data about an atom in a patch definition.&quot;&quot;&quot;</span>
-        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">description</span><span class="p">):</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">description</span><span class="p">):</span>
             <span class="k">if</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">description</span><span class="p">:</span>
                 <span class="n">colonIndex</span> <span class="o">=</span> <span class="n">description</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">residue</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">description</span><span class="p">[:</span><span class="n">colonIndex</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span>
@@ -957,7 +957,7 @@
 
     <span class="k">class</span> <span class="nc">_AtomType</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Inner class used to record atom types and associated properties.&quot;&quot;&quot;</span>
-        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">atomClass</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">atomClass</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">atomClass</span> <span class="o">=</span> <span class="n">atomClass</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">mass</span> <span class="o">=</span> <span class="n">mass</span>
@@ -965,7 +965,7 @@
 
     <span class="k">class</span> <span class="nc">_AtomTypeParameters</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Inner class used to record parameter values for atom types.&quot;&quot;&quot;</span>
-        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">,</span> <span class="n">forceName</span><span class="p">,</span> <span class="n">atomTag</span><span class="p">,</span> <span class="n">paramNames</span><span class="p">):</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">,</span> <span class="n">forceName</span><span class="p">,</span> <span class="n">atomTag</span><span class="p">,</span> <span class="n">paramNames</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ff</span> <span class="o">=</span> <span class="n">forcefield</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">forceName</span> <span class="o">=</span> <span class="n">forceName</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">atomTag</span> <span class="o">=</span> <span class="n">atomTag</span>
@@ -2004,7 +2004,7 @@
 <span class="k">class</span> <span class="nc">HarmonicBondGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A HarmonicBondGenerator constructs a HarmonicBondForce.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ff</span> <span class="o">=</span> <span class="n">forcefield</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bondsForAtomType</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types1</span> <span class="o">=</span> <span class="p">[]</span>
@@ -2068,7 +2068,7 @@
 <span class="k">class</span> <span class="nc">HarmonicAngleGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A HarmonicAngleGenerator constructs a HarmonicAngleForce.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ff</span> <span class="o">=</span> <span class="n">forcefield</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">anglesForAtom2Type</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types1</span> <span class="o">=</span> <span class="p">[]</span>
@@ -2150,7 +2150,7 @@
 <span class="k">class</span> <span class="nc">PeriodicTorsion</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A PeriodicTorsion records the information for a periodic torsion definition.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">types</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">types</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types1</span> <span class="o">=</span> <span class="n">types</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types2</span> <span class="o">=</span> <span class="n">types</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types3</span> <span class="o">=</span> <span class="n">types</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
@@ -2164,7 +2164,7 @@
 <span class="k">class</span> <span class="nc">PeriodicTorsionGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A PeriodicTorsionGenerator constructs a PeriodicTorsionForce.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ff</span> <span class="o">=</span> <span class="n">forcefield</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">proper</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">improper</span> <span class="o">=</span> <span class="p">[]</span>
@@ -2275,7 +2275,7 @@
 <span class="k">class</span> <span class="nc">RBTorsion</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;An RBTorsion records the information for a Ryckaert-Bellemans torsion definition.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">ordering</span><span class="o">=</span><span class="s1">&#39;charmm&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">ordering</span><span class="o">=</span><span class="s1">&#39;charmm&#39;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types1</span> <span class="o">=</span> <span class="n">types</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types2</span> <span class="o">=</span> <span class="n">types</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types3</span> <span class="o">=</span> <span class="n">types</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
@@ -2290,7 +2290,7 @@
 <span class="k">class</span> <span class="nc">RBTorsionGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;An RBTorsionGenerator constructs an RBTorsionForce.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ff</span> <span class="o">=</span> <span class="n">forcefield</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">proper</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">improper</span> <span class="o">=</span> <span class="p">[]</span>
@@ -2356,7 +2356,7 @@
 <span class="k">class</span> <span class="nc">CMAPTorsion</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A CMAPTorsion records the information for a CMAP torsion definition.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="nb">map</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="nb">map</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types1</span> <span class="o">=</span> <span class="n">types</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types2</span> <span class="o">=</span> <span class="n">types</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types3</span> <span class="o">=</span> <span class="n">types</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
@@ -2368,7 +2368,7 @@
 <span class="k">class</span> <span class="nc">CMAPTorsionGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A CMAPTorsionGenerator constructs a CMAPTorsionForce.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ff</span> <span class="o">=</span> <span class="n">forcefield</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">torsions</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">maps</span> <span class="o">=</span> <span class="p">[]</span>
@@ -2454,7 +2454,7 @@
 
     <span class="n">SCALETOL</span> <span class="o">=</span> <span class="mf">1e-5</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">,</span> <span class="n">coulomb14scale</span><span class="p">,</span> <span class="n">lj14scale</span><span class="p">,</span> <span class="n">useDispersionCorrection</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">,</span> <span class="n">coulomb14scale</span><span class="p">,</span> <span class="n">lj14scale</span><span class="p">,</span> <span class="n">useDispersionCorrection</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ff</span> <span class="o">=</span> <span class="n">forcefield</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coulomb14scale</span> <span class="o">=</span> <span class="n">coulomb14scale</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lj14scale</span> <span class="o">=</span> <span class="n">lj14scale</span>
@@ -2543,7 +2543,7 @@
 <span class="k">class</span> <span class="nc">LennardJonesGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A NBFix generator to construct the L-J force with NBFIX implemented as a lookup table&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">,</span> <span class="n">lj14scale</span><span class="p">,</span> <span class="n">useDispersionCorrection</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">,</span> <span class="n">lj14scale</span><span class="p">,</span> <span class="n">useDispersionCorrection</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ff</span> <span class="o">=</span> <span class="n">forcefield</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nbfixTypes</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lj14scale</span> <span class="o">=</span> <span class="n">lj14scale</span>
@@ -2723,7 +2723,7 @@
 <span class="k">class</span> <span class="nc">GBSAOBCGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A GBSAOBCGenerator constructs a GBSAOBCForce.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ff</span> <span class="o">=</span> <span class="n">forcefield</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">ForceField</span><span class="o">.</span><span class="n">_AtomTypeParameters</span><span class="p">(</span><span class="n">forcefield</span><span class="p">,</span> <span class="s1">&#39;GBSAOBCForce&#39;</span><span class="p">,</span> <span class="s1">&#39;Atom&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;charge&#39;</span><span class="p">,</span> <span class="s1">&#39;radius&#39;</span><span class="p">,</span> <span class="s1">&#39;scale&#39;</span><span class="p">))</span>
 
@@ -2776,7 +2776,7 @@
 <span class="k">class</span> <span class="nc">CustomBondGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A CustomBondGenerator constructs a CustomBondForce.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ff</span> <span class="o">=</span> <span class="n">forcefield</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types1</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types2</span> <span class="o">=</span> <span class="p">[]</span>
@@ -2824,7 +2824,7 @@
 <span class="k">class</span> <span class="nc">CustomAngleGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A CustomAngleGenerator constructs a CustomAngleForce.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ff</span> <span class="o">=</span> <span class="n">forcefield</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types1</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types2</span> <span class="o">=</span> <span class="p">[]</span>
@@ -2876,7 +2876,7 @@
 <span class="k">class</span> <span class="nc">CustomTorsion</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A CustomTorsion records the information for a custom torsion definition.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">paramValues</span><span class="p">,</span> <span class="n">ordering</span><span class="o">=</span><span class="s1">&#39;charmm&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">paramValues</span><span class="p">,</span> <span class="n">ordering</span><span class="o">=</span><span class="s1">&#39;charmm&#39;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types1</span> <span class="o">=</span> <span class="n">types</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types2</span> <span class="o">=</span> <span class="n">types</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types3</span> <span class="o">=</span> <span class="n">types</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
@@ -2891,7 +2891,7 @@
 <span class="k">class</span> <span class="nc">CustomTorsionGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A CustomTorsionGenerator constructs a CustomTorsionForce.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ff</span> <span class="o">=</span> <span class="n">forcefield</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">proper</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">improper</span> <span class="o">=</span> <span class="p">[]</span>
@@ -2959,7 +2959,7 @@
 <span class="k">class</span> <span class="nc">CustomNonbondedGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A CustomNonbondedGenerator constructs a CustomNonbondedForce.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">bondCutoff</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">bondCutoff</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ff</span> <span class="o">=</span> <span class="n">forcefield</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">energy</span> <span class="o">=</span> <span class="n">energy</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bondCutoff</span> <span class="o">=</span> <span class="n">bondCutoff</span>
@@ -3015,7 +3015,7 @@
 <span class="k">class</span> <span class="nc">CustomGBGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A CustomGBGenerator constructs a CustomGBForce.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ff</span> <span class="o">=</span> <span class="n">forcefield</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">globalParams</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">perParticleParams</span> <span class="o">=</span> <span class="p">[]</span>
@@ -3075,7 +3075,7 @@
 <span class="k">class</span> <span class="nc">CustomHbondGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A CustomHbondGenerator constructs a CustomHbondForce.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ff</span> <span class="o">=</span> <span class="n">forcefield</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">donorTypes1</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">donorTypes2</span> <span class="o">=</span> <span class="p">[]</span>
@@ -3243,7 +3243,7 @@
 <span class="k">class</span> <span class="nc">CustomManyParticleGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A CustomManyParticleGenerator constructs a CustomManyParticleForce.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">,</span> <span class="n">particlesPerSet</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">permutationMode</span><span class="p">,</span> <span class="n">bondCutoff</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">,</span> <span class="n">particlesPerSet</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">permutationMode</span><span class="p">,</span> <span class="n">bondCutoff</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ff</span> <span class="o">=</span> <span class="n">forcefield</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">particlesPerSet</span> <span class="o">=</span> <span class="n">particlesPerSet</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">energy</span> <span class="o">=</span> <span class="n">energy</span>
@@ -3376,7 +3376,7 @@
 
     <span class="c1">#=============================================================================================</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cubic</span><span class="p">,</span> <span class="n">quartic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cubic</span><span class="p">,</span> <span class="n">quartic</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">cubic</span> <span class="o">=</span> <span class="n">cubic</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">quartic</span> <span class="o">=</span> <span class="n">quartic</span>
@@ -3478,7 +3478,7 @@
     <span class="sd">&quot;&quot;&quot;An AmoebaAngleGenerator constructs a AmoebaAngleForce.&quot;&quot;&quot;</span>
     <span class="c1">#=============================================================================================</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forceField</span><span class="p">,</span> <span class="n">cubic</span><span class="p">,</span> <span class="n">quartic</span><span class="p">,</span> <span class="n">pentic</span><span class="p">,</span> <span class="n">sextic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forceField</span><span class="p">,</span> <span class="n">cubic</span><span class="p">,</span> <span class="n">quartic</span><span class="p">,</span> <span class="n">pentic</span><span class="p">,</span> <span class="n">sextic</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">forceField</span> <span class="o">=</span> <span class="n">forceField</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cubic</span> <span class="o">=</span> <span class="n">cubic</span>
@@ -3671,7 +3671,7 @@
 
     <span class="c1">#=============================================================================================</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forceField</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">cubic</span><span class="p">,</span> <span class="n">quartic</span><span class="p">,</span> <span class="n">pentic</span><span class="p">,</span> <span class="n">sextic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forceField</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">cubic</span><span class="p">,</span> <span class="n">quartic</span><span class="p">,</span> <span class="n">pentic</span><span class="p">,</span> <span class="n">sextic</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">forceField</span> <span class="o">=</span> <span class="n">forceField</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="nb">type</span>
@@ -3943,7 +3943,7 @@
     <span class="sd">&quot;&quot;&quot;An AmoebaTorsionGenerator constructs a AmoebaTorsionForce.&quot;&quot;&quot;</span>
     <span class="c1">#=============================================================================================</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">torsionUnit</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">torsionUnit</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">torsionUnit</span> <span class="o">=</span> <span class="n">torsionUnit</span>
 
@@ -4054,7 +4054,7 @@
 
     <span class="c1">#=============================================================================================</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">piTorsionUnit</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">piTorsionUnit</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">piTorsionUnit</span> <span class="o">=</span> <span class="n">piTorsionUnit</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types1</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types2</span> <span class="o">=</span> <span class="p">[]</span>
@@ -4166,7 +4166,7 @@
     <span class="sd">&quot;&quot;&quot;An AmoebaTorsionTorsionGenerator constructs a AmoebaTorsionTorsionForce.&quot;&quot;&quot;</span>
     <span class="c1">#=============================================================================================</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">types1</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types2</span> <span class="o">=</span> <span class="p">[]</span>
@@ -4408,7 +4408,7 @@
     <span class="sd">&quot;&quot;&quot;An AmoebaStretchBendGenerator constructs a AmoebaStretchBendForce.&quot;&quot;&quot;</span>
     <span class="c1">#=============================================================================================</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">types1</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types2</span> <span class="o">=</span> <span class="p">[]</span>
@@ -4552,7 +4552,7 @@
 
     <span class="c1">#=============================================================================================</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">radiusrule</span><span class="p">,</span> <span class="n">radiustype</span><span class="p">,</span> <span class="n">radiussize</span><span class="p">,</span> <span class="n">epsilonrule</span><span class="p">,</span> <span class="n">vdw13Scale</span><span class="p">,</span> <span class="n">vdw14Scale</span><span class="p">,</span> <span class="n">vdw15Scale</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">radiusrule</span><span class="p">,</span> <span class="n">radiustype</span><span class="p">,</span> <span class="n">radiussize</span><span class="p">,</span> <span class="n">epsilonrule</span><span class="p">,</span> <span class="n">vdw13Scale</span><span class="p">,</span> <span class="n">vdw14Scale</span><span class="p">,</span> <span class="n">vdw15Scale</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="nb">type</span>
 
@@ -4713,7 +4713,7 @@
 
     <span class="c1">#=============================================================================================</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forceField</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forceField</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">forceField</span> <span class="o">=</span> <span class="n">forceField</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">typeMap</span> <span class="o">=</span> <span class="p">{}</span>
 
@@ -5323,7 +5323,7 @@
 
     <span class="c1">#=========================================================================================</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epso</span><span class="p">,</span> <span class="n">epsh</span><span class="p">,</span> <span class="n">rmino</span><span class="p">,</span> <span class="n">rminh</span><span class="p">,</span> <span class="n">awater</span><span class="p">,</span> <span class="n">slevy</span><span class="p">,</span> <span class="n">dispoff</span><span class="p">,</span> <span class="n">shctd</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epso</span><span class="p">,</span> <span class="n">epsh</span><span class="p">,</span> <span class="n">rmino</span><span class="p">,</span> <span class="n">rminh</span><span class="p">,</span> <span class="n">awater</span><span class="p">,</span> <span class="n">slevy</span><span class="p">,</span> <span class="n">dispoff</span><span class="p">,</span> <span class="n">shctd</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">epso</span> <span class="o">=</span> <span class="n">epso</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">epsh</span> <span class="o">=</span> <span class="n">epsh</span>
@@ -5396,7 +5396,7 @@
 
     <span class="c1">#=========================================================================================</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forceField</span><span class="p">,</span> <span class="n">solventDielectric</span><span class="p">,</span> <span class="n">soluteDielectric</span><span class="p">,</span> <span class="n">includeCavityTerm</span><span class="p">,</span> <span class="n">probeRadius</span><span class="p">,</span> <span class="n">surfaceAreaFactor</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forceField</span><span class="p">,</span> <span class="n">solventDielectric</span><span class="p">,</span> <span class="n">soluteDielectric</span><span class="p">,</span> <span class="n">includeCavityTerm</span><span class="p">,</span> <span class="n">probeRadius</span><span class="p">,</span> <span class="n">surfaceAreaFactor</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">forceField</span> <span class="o">=</span> <span class="n">forceField</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">solventDielectric</span> <span class="o">=</span> <span class="n">solventDielectric</span>
@@ -5660,7 +5660,7 @@
     <span class="sd">&quot;&quot;&quot;An AmoebaUreyBradleyGenerator constructs a AmoebaUreyBradleyForce.&quot;&quot;&quot;</span>
     <span class="c1">#=============================================================================================</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">anglesForAtom2Type</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">types1</span> <span class="o">=</span> <span class="p">[]</span>
@@ -5733,7 +5733,7 @@
 <span class="k">class</span> <span class="nc">HippoNonbondedGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A HippoNonbondedGenerator constructs a HippoNonbondedForce.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">,</span> <span class="n">extrapCoeff</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">,</span> <span class="n">extrapCoeff</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ff</span> <span class="o">=</span> <span class="n">forcefield</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">extrapCoeff</span> <span class="o">=</span> <span class="n">extrapCoeff</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">exceptions</span> <span class="o">=</span> <span class="p">{}</span>
@@ -5839,7 +5839,7 @@
 <span class="k">class</span> <span class="nc">DrudeGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A DrudeGenerator constructs a DrudeForce.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ff</span> <span class="o">=</span> <span class="n">forcefield</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">typeMap</span> <span class="o">=</span> <span class="p">{}</span>
 

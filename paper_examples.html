@@ -214,9 +214,9 @@ calling the <code class="docutils literal"><span class="pre">save</span></code> 
 <div class="section" id="example-1">
 <h2>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h2>
 <div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mbuild</span> <span class="k">as</span> <span class="nn">mb</span>
-<span class="kn">from</span> <span class="nn">mbuild.examples</span> <span class="k">import</span> <span class="n">Ethane</span>
-<span class="kn">from</span> <span class="nn">foyer.examples.utils</span> <span class="k">import</span> <span class="n">example_file_path</span>
-<span class="kn">from</span> <span class="nn">foyer</span> <span class="k">import</span> <span class="n">Forcefield</span>
+<span class="kn">from</span> <span class="nn">mbuild.examples</span> <span class="kn">import</span> <span class="n">Ethane</span>
+<span class="kn">from</span> <span class="nn">foyer.examples.utils</span> <span class="kn">import</span> <span class="n">example_file_path</span>
+<span class="kn">from</span> <span class="nn">foyer</span> <span class="kn">import</span> <span class="n">Forcefield</span>
 
 <span class="sd">&quot;&quot;&quot; Applying a force field while saving from mBuild &quot;&quot;&quot;</span>
 <span class="c1"># Create the chemical topology</span>
@@ -245,14 +245,14 @@ calling the <code class="docutils literal"><span class="pre">save</span></code> 
 two separate chemical topologies and applying different forcefield files
 to each. The two parameterized systems that are generated are then
 combined into a single <code class="docutils literal"><span class="pre">ParmEd</span></code> <code class="docutils literal"><span class="pre">Structure</span></code> and saved to disk.</p>
-<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">foyer</span> <span class="k">import</span> <span class="n">Forcefield</span>
-<span class="kn">from</span> <span class="nn">foyer.examples.utils</span> <span class="k">import</span> <span class="n">example_file_path</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">foyer</span> <span class="kn">import</span> <span class="n">Forcefield</span>
+<span class="kn">from</span> <span class="nn">foyer.examples.utils</span> <span class="kn">import</span> <span class="n">example_file_path</span>
 <span class="kn">import</span> <span class="nn">mbuild</span> <span class="k">as</span> <span class="nn">mb</span>
-<span class="kn">from</span> <span class="nn">mbuild.examples</span> <span class="k">import</span> <span class="n">Ethane</span>
-<span class="kn">from</span> <span class="nn">mbuild.lib.atoms</span> <span class="k">import</span> <span class="n">H</span>
-<span class="kn">from</span> <span class="nn">mbuild.lib.bulk_materials</span> <span class="k">import</span> <span class="n">AmorphousSilica</span>
-<span class="kn">from</span> <span class="nn">mbuild.lib.recipes</span> <span class="k">import</span> <span class="n">SilicaInterface</span>
-<span class="kn">from</span> <span class="nn">mbuild.lib.recipes</span> <span class="k">import</span> <span class="n">Monolayer</span>
+<span class="kn">from</span> <span class="nn">mbuild.examples</span> <span class="kn">import</span> <span class="n">Ethane</span>
+<span class="kn">from</span> <span class="nn">mbuild.lib.atoms</span> <span class="kn">import</span> <span class="n">H</span>
+<span class="kn">from</span> <span class="nn">mbuild.lib.bulk_materials</span> <span class="kn">import</span> <span class="n">AmorphousSilica</span>
+<span class="kn">from</span> <span class="nn">mbuild.lib.recipes</span> <span class="kn">import</span> <span class="n">SilicaInterface</span>
+<span class="kn">from</span> <span class="nn">mbuild.lib.recipes</span> <span class="kn">import</span> <span class="n">Monolayer</span>
 
 <span class="c1"># Create a silica substrate, capping surface oxygens with hydrogen</span>
 <span class="n">silica</span><span class="o">=</span><span class="n">SilicaInterface</span><span class="p">(</span><span class="n">bulk_silica</span><span class="o">=</span><span class="n">AmorphousSilica</span><span class="p">())</span>

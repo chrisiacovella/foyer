@@ -182,10 +182,10 @@
 <span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">tempfile</span> <span class="k">import</span> <span class="n">NamedTemporaryFile</span>
+<span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">NamedTemporaryFile</span>
 <span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
 
-<span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="k">import</span> <span class="n">resource_filename</span>
+<span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">resource_filename</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">re</span>
 
@@ -194,19 +194,19 @@
 <span class="kn">import</span> <span class="nn">simtk.openmm.app.element</span> <span class="k">as</span> <span class="nn">elem</span>
 <span class="kn">import</span> <span class="nn">foyer.element</span> <span class="k">as</span> <span class="nn">custom_elem</span>
 <span class="kn">import</span> <span class="nn">simtk.unit</span> <span class="k">as</span> <span class="nn">u</span>
-<span class="kn">from</span> <span class="nn">simtk</span> <span class="k">import</span> <span class="n">openmm</span> <span class="k">as</span> <span class="n">mm</span>
-<span class="kn">from</span> <span class="nn">simtk.openmm</span> <span class="k">import</span> <span class="n">app</span>
-<span class="kn">from</span> <span class="nn">simtk.openmm.app.forcefield</span> <span class="k">import</span> <span class="p">(</span><span class="n">NoCutoff</span><span class="p">,</span> <span class="n">CutoffNonPeriodic</span><span class="p">,</span> <span class="n">HBonds</span><span class="p">,</span>
+<span class="kn">from</span> <span class="nn">simtk</span> <span class="kn">import</span> <span class="n">openmm</span> <span class="k">as</span> <span class="n">mm</span>
+<span class="kn">from</span> <span class="nn">simtk.openmm</span> <span class="kn">import</span> <span class="n">app</span>
+<span class="kn">from</span> <span class="nn">simtk.openmm.app.forcefield</span> <span class="kn">import</span> <span class="p">(</span><span class="n">NoCutoff</span><span class="p">,</span> <span class="n">CutoffNonPeriodic</span><span class="p">,</span> <span class="n">HBonds</span><span class="p">,</span>
                                          <span class="n">AllBonds</span><span class="p">,</span> <span class="n">HAngles</span><span class="p">,</span> <span class="n">NonbondedGenerator</span><span class="p">,</span>
                                          <span class="n">_convertParameterToNumber</span><span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">foyer.atomtyper</span> <span class="k">import</span> <span class="n">find_atomtypes</span>
-<span class="kn">from</span> <span class="nn">foyer.exceptions</span> <span class="k">import</span> <span class="n">FoyerError</span>
-<span class="kn">from</span> <span class="nn">foyer</span> <span class="k">import</span> <span class="n">smarts</span>
-<span class="kn">from</span> <span class="nn">foyer.validator</span> <span class="k">import</span> <span class="n">Validator</span>
-<span class="kn">from</span> <span class="nn">foyer.xml_writer</span> <span class="k">import</span> <span class="n">write_foyer</span>
-<span class="kn">from</span> <span class="nn">foyer.utils.io</span> <span class="k">import</span> <span class="n">import_</span><span class="p">,</span> <span class="n">has_mbuild</span>
-<span class="kn">from</span> <span class="nn">foyer.utils.external</span> <span class="k">import</span> <span class="n">get_ref</span>
+<span class="kn">from</span> <span class="nn">foyer.atomtyper</span> <span class="kn">import</span> <span class="n">find_atomtypes</span>
+<span class="kn">from</span> <span class="nn">foyer.exceptions</span> <span class="kn">import</span> <span class="n">FoyerError</span>
+<span class="kn">from</span> <span class="nn">foyer</span> <span class="kn">import</span> <span class="n">smarts</span>
+<span class="kn">from</span> <span class="nn">foyer.validator</span> <span class="kn">import</span> <span class="n">Validator</span>
+<span class="kn">from</span> <span class="nn">foyer.xml_writer</span> <span class="kn">import</span> <span class="n">write_foyer</span>
+<span class="kn">from</span> <span class="nn">foyer.utils.io</span> <span class="kn">import</span> <span class="n">import_</span><span class="p">,</span> <span class="n">has_mbuild</span>
+<span class="kn">from</span> <span class="nn">foyer.utils.external</span> <span class="kn">import</span> <span class="n">get_ref</span>
 
 
 <span class="k">def</span> <span class="nf">preprocess_forcefield_files</span><span class="p">(</span><span class="n">forcefield_files</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -513,7 +513,7 @@
 
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield_files</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forcefield_files</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">atomTypeDefinitions</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">atomTypeOverrides</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">atomTypeDesc</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
