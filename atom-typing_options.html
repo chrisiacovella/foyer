@@ -215,13 +215,13 @@ function based on a particular use case.</p>
 </table>
 <dl class="method">
 <dt id="foyer.forcefield.Forcefield.apply">
-<code class="descname">apply</code><span class="sig-paren">(</span><em>topology</em>, <em>references_file=None</em>, <em>use_residue_map=True</em>, <em>assert_bond_params=True</em>, <em>assert_angle_params=True</em>, <em>assert_dihedral_params=True</em>, <em>assert_improper_params=False</em>, <em>combining_rule='geometric'</em>, <em>verbose=False</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/foyer/forcefield.html#Forcefield.apply"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#foyer.forcefield.Forcefield.apply" title="Permalink to this definition">¶</a></dt>
+<code class="descname">apply</code><span class="sig-paren">(</span><em>structure</em>, <em>references_file=None</em>, <em>use_residue_map=True</em>, <em>assert_bond_params=True</em>, <em>assert_angle_params=True</em>, <em>assert_dihedral_params=True</em>, <em>assert_improper_params=False</em>, <em>combining_rule='geometric'</em>, <em>verbose=False</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/foyer/forcefield.html#Forcefield.apply"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#foyer.forcefield.Forcefield.apply" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply the force field to a molecular structure</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>topology</strong> : openmm.app.Topology or parmed.Structure or mbuild.Compound</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>structure</strong> : parmed.Structure or mbuild.Compound</p>
 <blockquote>
 <div><p>Molecular structure to apply the force field to</p>
 </div></blockquote>
@@ -547,13 +547,13 @@ or additional parameters.</p>
 
 <dl class="method">
 <dt id="foyer.forcefield.Forcefield.run_atomtyping">
-<code class="descname">run_atomtyping</code><span class="sig-paren">(</span><em>topology</em>, <em>use_residue_map=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/foyer/forcefield.html#Forcefield.run_atomtyping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#foyer.forcefield.Forcefield.run_atomtyping" title="Permalink to this definition">¶</a></dt>
+<code class="descname">run_atomtyping</code><span class="sig-paren">(</span><em>structure</em>, <em>use_residue_map=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/foyer/forcefield.html#Forcefield.run_atomtyping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#foyer.forcefield.Forcefield.run_atomtyping" title="Permalink to this definition">¶</a></dt>
 <dd><p>Atomtype the topology</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>topology</strong> : openmm.app.Topology</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>structure</strong> : parmed.structure.Structure</p>
 <blockquote>
 <div><p>Molecular structure to find atom types of</p>
 </div></blockquote>
