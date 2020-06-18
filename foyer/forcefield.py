@@ -250,6 +250,75 @@ def _separate_urey_bradleys(system, topology):
     system.addForce(harmonic_bond_force)
     system.addForce(ub_force)
 
+def _fix_adjusts(data, structure, combining_rule):
+    #set epsilon_14 and sigma_14 values into the parmed structure so we can
+    #access these when writing out lammps
+    for atom_pmd in structure.atoms:
+        #identify the atom in the openmm topology
+        atom_omm = [atom for atom in data.atomParameters if atom.id == atom_pmd.type][0]
+        if data.atomParameters[atom_omm].get('epsilon14'):
+            atom_pmd.epsilon_14 = float(data.atomParameters[atom_omm]['epsilon14']) * u.kilojoule_per_mole
+        else: #if epsilon14 wasn't defined, just use epsilon
+            atom_pmd.epsilon_14 = float(data.atomParameters[atom_omm]['epsilon']) * u.kilojoule_per_mole
+        if data.atomParameters[atom_omm].get('sigma14'):
+            atom_pmd.sigma_14 = float(data.atomParameters[atom_omm]['sigma14']) * u.nanometer
+        else: #if sigma14 wasn't defined, just use sigma
+            atom_pmd.sigma_14 = float(data.atomParameters[atom_omm]['sigma']) * u.nanometer
+    
+    #even though sigma14 and epsilon14 parameters are now defined in the parmed
+    #structure, they aren't used when setting up the adjusts for the 1-4
+    #nonbonded interactions, so we need to manually reset the values them
+
+    #loop over the adjusts and reset parameters
+    for adjust in structure.adjusts:
+        type1 = adjust.atom1.type
+        type2 = adjust.atom2.type
+        
+        
+        #internal units in parmed are kcal/mol
+        epsilon_1 = adjust.atom1.epsilon * u.kilocalories_per_mole
+        epsilon_2 = adjust.atom2.epsilon * u.kilocalories_per_mole
+
+        #internal units in parmed are angstroms
+        #despite being labeled as rmin what is stored in adjust is rmin/2
+        rmin2_1 = adjust.atom1.rmin * u.angstrom
+        rmin2_2 = adjust.atom2.rmin * u.angstrom
+        
+        #since sigma_14 and epsilon_14 values are now in the parmed structure,
+        #we could access the through the parmed structure,
+        #instead this just uses the same logic/code as above,
+        #accessing these values from the openmm topology
+        atom1 = [atom for atom in data.atomParameters if atom.id == type1][0]
+        atom2 = [atom for atom in data.atomParameters if atom.id == type2][0]
+        #parameters from xml file is kj/mol and nanometers
+        if data.atomParameters[atom1].get('epsilon14'):
+            epsilon_1 = float(data.atomParameters[atom1]['epsilon14']) * u.kilojoule_per_mole
+        if data.atomParameters[atom1].get('sigma14'):
+            #the adjust takes rmin for the pair, rather than sigma
+            #convert sigma to rmin with 2**(1/6); also will scale by 1/2
+            rmin2_1 = float(data.atomParameters[atom1]['sigma14'])*0.5*2.0**(1.0/6.0) * u.nanometer
+        
+        if data.atomParameters[atom2].get('epsilon14'):
+            epsilon_2 = float(data.atomParameters[atom2]['epsilon14']) * u.kilojoule_per_mole
+        if data.atomParameters[atom2].get('sigma14'):
+            rmin2_2 = float(data.atomParameters[atom2]['sigma14'])*0.5*2.0**(1.0/6.0) * u.nanometer
+
+        #while CHARMM uses arithmetic, i.e., Lorentz mixing by default,
+        #this function defined to follow the same general behavior as foyer
+        #that is, defaulting to geometric if the combining rule is not set
+        #when foyer is called
+        import math
+        if combining_rule == 'geometric':
+            rmin = 2.0 * math.sqrt(rmin2_1.value_in_unit(u.angstrom) * rmin2_2.value_in_unit(u.angstrom)) * u.angstrom
+        else:  #lorentz-berthelot coming rules, i.e., arithmetic.
+            rmin = (rmin2_1.value_in_unit(u.angstrom) + rmin2_2.value_in_unit(u.angstrom)) * u.angstrom
+
+        epsilon = math.sqrt(epsilon_1.value_in_unit(u.kilocalories_per_mole)*epsilon_2.value_in_unit(u.kilocalories_per_mole)) *u.kilocalorie_per_mole
+
+        #set the new pair interaction parameters in the parmed structure.
+        #note, in this case, rmin really does mean rmin, not rmin/2
+        adjust.type.epsilon = epsilon.value_in_unit(u.kilocalories_per_mole)
+        adjust.type.rmin = rmin.value_in_unit(u.angstrom)
 
 def _error_or_warn(error, msg):
     """Raise an error or warning if topology objects are not fully parameterized.
@@ -481,7 +550,7 @@ class Forcefield(app.ForceField):
         return element, True
 
     def registerAtomType(self, parameters):
-        """Register a new atom type. """
+        """Register a new atom type. """        
         name = parameters['name']
         if name in self._atomTypes:
             raise ValueError('Found multiple definitions for atom type: ' + name)
@@ -523,7 +592,7 @@ class Forcefield(app.ForceField):
     def apply(self, structure, references_file=None, use_residue_map=True,
               assert_bond_params=True, assert_angle_params=True,
               assert_dihedral_params=True, assert_improper_params=False,
-              combining_rule='geometric', verbose=False, *args, **kwargs):
+              combining_rule='geometric', verbose=False, adjust14=False, *args, **kwargs):
         """Apply the force field to a molecular structure
 
         Parameters
@@ -560,6 +629,16 @@ class Forcefield(app.ForceField):
         verbose : bool, optional, default=False
             If True, Foyer will print debug-level information about notable or
             potentially problematic details it encounters.
+        adjust14 : bool, optional, default=False
+            If True, Foyer will use sigma14 and epsilon14 values provided in
+            the XML file in place of sigma and epsilon for 1-4 interactions.
+            If separate sigma14 and/or epsilon14 values are not provided for a given
+            atom type, sigma and/or epsilon will be used.
+            For GROMACS, these parameters apear in the "pairs" section of
+            the top file, where interactions between pairs follow the defined
+            combining_rule passed to Foyer (default, geometric).
+            For LAMMPS, epsilon14 and sigma14 values are defined along with
+            sigma and epsilon values for use by the pair_coeff command.
         """
         if self.atomTypeDefinitions == {}:
             raise FoyerError('Attempting to atom-type using a force field '
@@ -578,7 +657,7 @@ class Forcefield(app.ForceField):
             references_file=references_file, assert_bond_params=assert_bond_params,
             assert_angle_params=assert_angle_params, assert_dihedral_params=assert_dihedral_params,
             assert_improper_params=assert_improper_params, combining_rule=combining_rule,
-            verbose=verbose, *args, **kwargs)
+            verbose=verbose, adjust14=adjust14, *args, **kwargs)
 
     def run_atomtyping(self, structure, use_residue_map=True, **kwargs):
         """Atomtype the topology
@@ -627,6 +706,7 @@ class Forcefield(app.ForceField):
                            assert_dihedral_params=True,
                            assert_improper_params=False,
                            combining_rule='geometric', verbose=False,
+                           adjust14=False,
                            *args, **kwargs):
 
         topology, positions = _topology_from_parmed(structure, self.non_element_types)
@@ -648,7 +728,7 @@ class Forcefield(app.ForceField):
         _check_angles(data, structure, verbose, assert_angle_params)
         _check_dihedrals(data, structure, verbose,
                               assert_dihedral_params, assert_improper_params)
-
+        
         if references_file:
             atom_types = set(atom.type for atom in structure.atoms)
             self._write_references_to_file(atom_types, references_file)
@@ -657,7 +737,8 @@ class Forcefield(app.ForceField):
         # combining rule directly in XML, i.e.
         # if self.name == 'oplsaa':
         structure.combining_rule = combining_rule
-
+        if adjust14:
+            _fix_adjusts(data, structure, combining_rule)
         return structure
 
     def createSystem(self, topology, nonbondedMethod=NoCutoff,
@@ -727,10 +808,14 @@ class Forcefield(app.ForceField):
 
         # TODO: Better way to lookup nonbonded parameters...?
         nonbonded_params = None
+        nonbonded_params14 = None
+
         for generator in self.getGenerators():
             if isinstance(generator, NonbondedGenerator):
                 nonbonded_params = generator.params.paramsForType
+                nonbonded_params14 = generator.params.extraParamsForType
                 break
+
 
         for chain in topology.chains():
             for res in chain.residues():
@@ -738,6 +823,8 @@ class Forcefield(app.ForceField):
                     data.atomType[atom] = atom.id
                     if nonbonded_params:
                         params = nonbonded_params[atom.id]
+                        if nonbonded_params14:
+                            params.update(nonbonded_params14[atom.id])
                         data.atomParameters[atom] = params
 
         # Create the System and add atoms

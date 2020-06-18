@@ -25,6 +25,9 @@ class Validator(object):
             self.atom_type_names = ff_tree.xpath('/ForceField/AtomTypes/Type/@name')
             self.atom_types = ff_tree.xpath('/ForceField/AtomTypes/Type')
 
+            self.atom_type_epsilon = ff_tree.xpath('/ForceField/NonbondedForce/Atom/@epsilon_14')
+            print(self.atom_type_epsilon)
+            
             self.validate_class_type_exclusivity(ff_tree)
 
             # Loading forcefield should succeed, because XML can be parsed and

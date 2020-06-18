@@ -172,6 +172,8 @@
           <xs:attribute type="xs:float" name="charge" use="optional"/>
           <xs:attribute type="xs:float" name="sigma" use="optional"/>
           <xs:attribute type="xs:float" name="epsilon" use="optional"/>
+          <xs:attribute type="xs:float" name="sigma14" use="optional"/>
+          <xs:attribute type="xs:float" name="epsilon14" use="optional"/>
         </xs:extension>
       </xs:simpleContent>
     </xs:complexType>
