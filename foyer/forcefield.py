@@ -739,6 +739,12 @@ class Forcefield(app.ForceField):
         structure.combining_rule = combining_rule
         if adjust14:
             _fix_adjusts(data, structure, combining_rule)
+
+        total_charge = sum([atom.charge for atom in structure.atoms])
+        if not np.allclose(total_charge, 0):
+            warnings.warn("Parametrized structure has non-zero charge."
+                "Structure's total charge: {}".format(total_charge))
+
         return structure
 
     def createSystem(self, topology, nonbondedMethod=NoCutoff,
